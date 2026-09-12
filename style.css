@@ -75,56 +75,6 @@ body {
   border-color: transparent;
 }
 
-/* ===== 最新一期 ===== */
-.latest-card {
-  max-width: 1100px;
-  margin: 18px auto 0;
-  background: var(--card);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  padding: 20px 24px;
-}
-.latest-head {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.latest-label { font-size: 16px; color: var(--muted); }
-.latest-num { font-size: 22px; font-weight: 700; }
-.latest-date { font-size: 16px; color: var(--muted); }
-.latest-balls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 16px;
-}
-.ball {
-  min-width: 48px;
-  height: 48px;
-  border-radius: 10px;
-  border: 2px solid #000;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #000;
-  font-size: 28px;
-  font-weight: 700;
-  padding: 0 10px;
-}
-.ball.special { position: relative; margin-top: 14px; }
-.ball.special::after {
-  content: "特别号";
-  position: absolute;
-  top: -26px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 13px;
-  color: #000;
-  white-space: nowrap;
-  font-weight: 500;
-}
-
 /* ===== 控制栏 ===== */
 .controls {
   max-width: 1100px;
@@ -221,30 +171,6 @@ body {
   font-weight: 700;
 }
 
-/* ===== 频率 / 遗漏 ===== */
-.freq-wrap { margin-top: 16px; display: flex; flex-direction: column; gap: 16px; overflow-x: auto; }
-.freq-row {
-  display: grid;
-  grid-template-columns: 100px minmax(460px, 1fr);
-  gap: 14px;
-  align-items: center;
-  min-width: max-content;
-}
-.freq-row-label { font-size: 20px; font-weight: 700; color: #000; }
-.freq-cells { display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px; min-width: 460px; }
-.freq-cells.wide-cells { grid-template-columns: repeat(15, 1fr); min-width: 680px; }
-.freq-cell {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 2px;
-  text-align: center;
-  min-width: 0;
-}
-.freq-cell .n { font-weight: 700; font-size: 20px; color: #000; }
-.freq-cell .v { font-size: 22px; font-weight: 700; margin-top: 2px; color: #000; }
-.freq-cell .l { display: block; font-size: 14px; color: var(--muted); margin-top: 1px; }
-
 /* ===== 页脚 ===== */
 .footer {
   max-width: 1100px;
@@ -267,11 +193,8 @@ body {
   body { font-size: 17px; }
   .topbar { padding: 16px; }
   .brand-text h1 { font-size: 24px; }
-  .tabs, .latest-card, .controls, .panel { margin-left: 10px; margin-right: 10px; }
+  .tabs, .controls, .panel { margin-left: 10px; margin-right: 10px; }
   .panel { padding: 14px 10px; }
-  .ball { min-width: 42px; height: 42px; font-size: 24px; }
-  .freq-row { grid-template-columns: 1fr; gap: 8px; }
-  .freq-cells { gap: 6px; }
   /* 走势图紧凑化, 让号码尽量一屏显示 */
   .trend-table { font-size: 15px; }
   .trend-table th, .trend-table td { padding: 2px 3px; }
