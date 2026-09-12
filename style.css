@@ -267,11 +267,18 @@ body {
   body { font-size: 17px; }
   .topbar { padding: 16px; }
   .brand-text h1 { font-size: 24px; }
-  .tabs, .latest-card, .controls, .panel { margin-left: 12px; margin-right: 12px; }
-  .panel { padding: 16px; }
+  .tabs, .latest-card, .controls, .panel { margin-left: 10px; margin-right: 10px; }
+  .panel { padding: 14px 10px; }
   .ball { min-width: 42px; height: 42px; font-size: 24px; }
-  .num-cell { font-size: 22px; min-width: 30px; height: 30px; }
   .freq-row { grid-template-columns: 1fr; gap: 8px; }
   .freq-cells { gap: 6px; }
-  .trend-table th, .trend-table td { padding: 6px 7px; }
+  /* 走势图紧凑化, 让号码尽量一屏显示 */
+  .trend-table { font-size: 15px; }
+  .trend-table th, .trend-table td { padding: 2px 3px; }
+  .trend-table thead th { font-size: 13px; }
+  .trend-table thead th.sub { font-size: 11px; padding: 1px 3px; }
+  .num-cell { font-size: 20px; min-width: 22px; height: 24px; }
+  .trend-table .col-num { font-size: 14px; }
+  .trend-table .col-date { font-size: 12px; }
+  .trend-table .col-stat { font-size: 13px; }
 }

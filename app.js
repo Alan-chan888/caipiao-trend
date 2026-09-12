@@ -81,7 +81,7 @@
     });
     for (let i = 0; i < digits; i++) {
       const th = document.createElement("th");
-      th.textContent = digits === 7 && i === 6 ? "第7位(特别号)" : "第" + (i + 1) + "位";
+      th.textContent = "第" + (i + 1) + "位";
       hr1.appendChild(th);
     }
     const thSum = document.createElement("th");
@@ -110,7 +110,7 @@
 
       const tdNum = document.createElement("td");
       tdNum.className = "col-num";
-      tdNum.textContent = draw.num;
+      tdNum.textContent = draw.num.length > 3 ? draw.num.slice(-3) : draw.num;
       tr.appendChild(tdNum);
 
       const tdDate = document.createElement("td");
