@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>体彩规律图 · 七星彩 & 排列五</title>
+  <meta name="description" content="中国体育彩票七星彩、排列五走势图与规律分析，数据每日自动更新">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🎯</span>
+      <div class="brand-text">
+        <h1>体彩规律图</h1>
+        <p>七星彩 · 排列五 走势分析</p>
+      </div>
+    </div>
+    <div class="topbar-meta">
+      <span id="updatedAt" class="updated">加载中…</span>
+    </div>
+  </header>
+
+  <nav class="tabs" id="gameTabs">
+    <button class="tab active" data-game="qxc">七星彩</button>
+    <button class="tab" data-game="pl5">排列五</button>
+  </nav>
+
+  <!-- 最新一期摘要 -->
+  <section class="latest-card" id="latestCard">
+    <div class="latest-head">
+      <div>
+        <span class="latest-label">最新一期</span>
+        <span class="latest-num" id="latestNum">—</span>
+      </div>
+      <span class="latest-date" id="latestDate">—</span>
+    </div>
+    <div class="latest-balls" id="latestBalls"></div>
+    <div class="latest-extra" id="latestExtra"></div>
+  </section>
+
+  <!-- 控制栏 -->
+  <section class="controls">
+    <div class="control-group">
+      <span class="control-label">显示期数</span>
+      <div class="seg" id="rangeSeg">
+        <button data-range="30">近30期</button>
+        <button data-range="50">近50期</button>
+        <button data-range="100" class="active">近100期</button>
+        <button data-range="200">近200期</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <span class="control-label">着色方式</span>
+      <div class="seg" id="colorSeg">
+        <button data-color="number" class="active">号码色</button>
+        <button data-color="odd">奇偶</button>
+        <button data-color="big">大小</button>
+        <button data-color="route">012路</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 走势图 -->
+  <section class="panel" id="trendPanel">
+    <h2 class="panel-title">📈 走势图</h2>
+    <div class="table-scroll" id="trendScroll">
+      <table class="trend-table" id="trendTable"></table>
+    </div>
+    <div class="legend" id="legend"></div>
+  </section>
+
+  <!-- 频率统计 -->
+  <section class="panel" id="freqPanel">
+    <h2 class="panel-title">🔥 号码频率统计</h2>
+    <p class="panel-sub">各号码在每一位及总体出现次数（基于当前显示期数）</p>
+    <div class="freq-wrap" id="freqWrap"></div>
+  </section>
+
+  <!-- 遗漏统计 -->
+  <section class="panel" id="omitPanel">
+    <h2 class="panel-title">⏳ 遗漏统计</h2>
+    <p class="panel-sub">各号码距离上次出现已间隔多少期（0 表示最近一期刚开出）</p>
+    <div class="freq-wrap" id="omitWrap"></div>
+  </section>
+
+  <!-- 冷热号 -->
+  <section class="panel" id="hotPanel">
+    <h2 class="panel-title">🌡️ 冷热号分析</h2>
+    <p class="panel-sub">近10期与近30期出现频次排行，识别近期热号与冷号</p>
+    <div class="hot-grid" id="hotGrid"></div>
+  </section>
+
+  <footer class="footer">
+    <p>数据来源：中国体育彩票官方开奖数据 · 每日自动更新</p>
+    <p class="disclaimer">本工具仅供娱乐与数据参考，不构成任何投注建议，请理性购彩。</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
