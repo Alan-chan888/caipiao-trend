@@ -155,9 +155,10 @@ body {
 }
 .trend-table tbody tr:nth-child(even) { background: #fafafa; }
 .trend-table tbody tr:hover { background: #f0f0f3; }
-.trend-table .col-num { color: #000; font-size: 18px; font-weight: 700; }
-.trend-table .col-date { color: var(--muted); font-size: 16px; }
-.trend-table .col-stat { color: #000; font-size: 17px; }
+.trend-table .col-merged { line-height: 1.25; }
+.trend-table .merged-num { color: #000; font-size: 18px; font-weight: 700; }
+.trend-table .merged-date { color: var(--muted); font-size: 13px; }
+.trend-table .col-value { color: #000; font-size: 18px; font-weight: 700; }
 
 /* 号码单元格：纯黑色大字 */
 .num-cell {
@@ -201,7 +202,7 @@ body {
   .trend-table thead th { font-size: 13px; }
   .trend-table thead th.sub { font-size: 11px; padding: 1px 3px; }
   .num-cell { font-size: 20px; min-width: 22px; height: 24px; }
-  .trend-table .col-num { font-size: 14px; }
-  .trend-table .col-date { font-size: 12px; }
-  .trend-table .col-stat { font-size: 13px; }
+  .trend-table .merged-num { font-size: 15px; }
+  .trend-table .merged-date { font-size: 11px; }
+  .trend-table .col-value { font-size: 15px; }
 }

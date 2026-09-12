@@ -14,7 +14,7 @@
   // ===== 工具 =====
   function shortDate(date) { return date ? date.slice(5) : ""; } // MM-DD
 
-  function computeSum(result) { return result.reduce((a, b) => a + b, 0); }
+  function computeValue(result) { return result.slice(0, 4).reduce((a, b) => a + b, 0); } // 前4位相加
 
   // ===== 加载数据 =====
   async function loadData() {
@@ -53,7 +53,7 @@
     // 表头
     const thead = document.createElement("thead");
     const hr1 = document.createElement("tr");
-    ["期号", "日期"].forEach((t) => {
+    ["期号", "值"].forEach((t) => {
       const th = document.createElement("th");
       th.textContent = t;
       hr1.appendChild(th);
@@ -63,13 +63,13 @@
       th.textContent = "第" + (i + 1) + "位";
       hr1.appendChild(th);
     }
-    const thSum = document.createElement("th");
-    thSum.textContent = "和值";
-    hr1.appendChild(thSum);
     thead.appendChild(hr1);
 
     const hr2 = document.createElement("tr");
-    hr2.appendChild(document.createElement("th"));
+    const thDate = document.createElement("th");
+    thDate.className = "sub";
+    thDate.textContent = "日期";
+    hr2.appendChild(thDate);
     hr2.appendChild(document.createElement("th"));
     for (let i = 0; i < digits; i++) {
       const th = document.createElement("th");
@@ -77,7 +77,6 @@
       th.textContent = i === digits - 1 && digits === 7 ? "0-14" : "0-9";
       hr2.appendChild(th);
     }
-    hr2.appendChild(document.createElement("th"));
     thead.appendChild(hr2);
     table.appendChild(thead);
 
@@ -87,15 +86,22 @@
       const draw = draws[r];
       const tr = document.createElement("tr");
 
-      const tdNum = document.createElement("td");
-      tdNum.className = "col-num";
-      tdNum.textContent = draw.num.length > 3 ? draw.num.slice(-3) : draw.num;
-      tr.appendChild(tdNum);
+      const tdMerged = document.createElement("td");
+      tdMerged.className = "col-merged";
+      const numDiv = document.createElement("div");
+      numDiv.className = "merged-num";
+      numDiv.textContent = draw.num.length > 3 ? draw.num.slice(-3) : draw.num;
+      const dateDiv = document.createElement("div");
+      dateDiv.className = "merged-date";
+      dateDiv.textContent = shortDate(draw.date);
+      tdMerged.appendChild(numDiv);
+      tdMerged.appendChild(dateDiv);
+      tr.appendChild(tdMerged);
 
-      const tdDate = document.createElement("td");
-      tdDate.className = "col-date";
-      tdDate.textContent = shortDate(draw.date);
-      tr.appendChild(tdDate);
+      const tdVal = document.createElement("td");
+      tdVal.className = "col-value";
+      tdVal.textContent = computeValue(draw.result);
+      tr.appendChild(tdVal);
 
       draw.result.forEach((n) => {
         const td = document.createElement("td");
@@ -105,11 +111,6 @@
         td.appendChild(span);
         tr.appendChild(td);
       });
-
-      const tdSum = document.createElement("td");
-      tdSum.className = "col-stat";
-      tdSum.textContent = computeSum(draw.result);
-      tr.appendChild(tdSum);
 
       tbody.appendChild(tr);
     }
