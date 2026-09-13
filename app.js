@@ -19,9 +19,10 @@
   // ===== 加载数据 =====
   async function loadData() {
     const files = { qxc: "data/qxc.json", pl5: "data/pl5.json" };
+    const cb = Date.now(); // cache-busting, 绕过浏览器缓存
     const [qxc, pl5] = await Promise.all([
-      fetch(files.qxc).then((r) => r.json()),
-      fetch(files.pl5).then((r) => r.json()),
+      fetch(files.qxc + "?t=" + cb).then((r) => r.json()),
+      fetch(files.pl5 + "?t=" + cb).then((r) => r.json()),
     ]);
     state.data.qxc = qxc;
     state.data.pl5 = pl5;
@@ -150,6 +151,18 @@
       await loadData();
       bindEvents();
       renderTrend();
+      // 每 5 分钟自动刷新, 随开奖结果持续更新
+      setInterval(async () => {
+        try {
+          const d = cur();
+          const before = d && d.draws.length ? d.draws[d.draws.length - 1].num : "";
+          await loadData();
+          const after = cur().draws.length ? cur().draws[cur().draws.length - 1].num : "";
+          if (before !== after) renderTrend(); // 数据有变化才重渲染
+        } catch (e) {
+          /* 静默失败, 下个周期重试 */
+        }
+      }, 5 * 60 * 1000);
     } catch (err) {
       console.error(err);
       $("#updatedAt").textContent = "数据加载失败";
