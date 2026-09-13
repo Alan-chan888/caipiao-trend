@@ -134,43 +134,45 @@ body {
   white-space: nowrap;
 }
 .trend-table th, .trend-table td {
-  padding: 8px 10px;
+  padding: 8px 12px;
   text-align: center;
-  border: 1px solid var(--border);
+  border: 1px solid #c9d4c0;
 }
 .trend-table thead th {
   position: sticky;
-  background: #f0f0f3;
-  color: #000;
+  background: #e6ece2;
+  color: #7461cd;
   font-weight: 700;
   z-index: 2;
 }
 .trend-table thead tr:first-child th { top: 0; }
 .trend-table thead tr:last-child th { top: 44px; }
 .trend-table thead th.sub {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  color: var(--muted);
-  padding: 5px 10px;
+  color: #7d8f74;
+  padding: 4px 12px;
 }
-.trend-table tbody tr:nth-child(even) { background: #fafafa; }
-.trend-table tbody tr:hover { background: #f0f0f3; }
+.trend-table tbody tr:nth-child(even) { background: #f2f6ee; }
+.trend-table tbody tr:hover { background: #e9f0e2; }
 .trend-table .col-merged { line-height: 1.25; }
-.trend-table .merged-num { color: #000; font-size: 18px; font-weight: 700; }
-.trend-table .merged-date { color: var(--muted); font-size: 13px; }
-.trend-table .col-value { color: #000; font-size: 18px; font-weight: 700; }
+.trend-table .merged-num { color: #2c4a1e; font-size: 18px; font-weight: 700; }
+.trend-table .merged-date { color: #9aa3a0; font-size: 13px; }
+.trend-table .col-value { color: #7461cd; font-size: 20px; font-weight: 700; }
 
-/* 号码单元格：纯黑色大字 */
+/* 号码单元格：深绿色大字 */
 .num-cell {
   display: inline-flex;
-  min-width: 34px;
+  min-width: 28px;
   height: 34px;
   align-items: center;
   justify-content: center;
-  color: #000;
+  color: #3c6428;
   font-size: 24px;
   font-weight: 700;
 }
+/* 号码分组: 组内数字紧凑 */
+.col-group .num-cell { margin: 0 2px; }
 
 /* ===== 页脚 ===== */
 .footer {

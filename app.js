@@ -37,15 +37,34 @@
     return all.slice(Math.max(0, all.length - state.range));
   }
 
+  // ===== 号码分组: A | BCD | EFG(七星彩) 或 A | BCD | E(排列五) =====
+  function getGroups(digits) {
+    if (digits === 7) {
+      return [
+        { label: "A", indices: [0] },
+        { label: "BCD", indices: [1, 2, 3] },
+        { label: "EFG", indices: [4, 5, 6] },
+      ];
+    }
+    return [
+      { label: "A", indices: [0] },
+      { label: "BCD", indices: [1, 2, 3] },
+      { label: "E", indices: [4] },
+    ];
+  }
+
   // ===== 渲染走势图 =====
   function renderTrend() {
     const d = cur();
     const draws = curDraws(); // 正序: 最早在前
     const digits = d.digits;
+    const groups = getGroups(digits);
 
     // 更新说明文字
     $("#trendSub").textContent =
-      digits === 7 ? "第 1-6 位为 0-9，第 7 位为特别号 0-14" : "第 1-5 位均为 0-9";
+      digits === 7
+        ? "「值」= A + B + C + D 前四位相加；第 7 位为特别号 0-14"
+        : "「值」= A + B + C + D 前四位相加";
 
     const table = $("#trendTable");
     table.innerHTML = "";
@@ -58,11 +77,11 @@
       th.textContent = t;
       hr1.appendChild(th);
     });
-    for (let i = 0; i < digits; i++) {
+    groups.forEach((g) => {
       const th = document.createElement("th");
-      th.textContent = "第" + (i + 1) + "位";
+      th.textContent = g.label;
       hr1.appendChild(th);
-    }
+    });
     thead.appendChild(hr1);
 
     const hr2 = document.createElement("tr");
@@ -71,12 +90,12 @@
     thDate.textContent = "日期";
     hr2.appendChild(thDate);
     hr2.appendChild(document.createElement("th"));
-    for (let i = 0; i < digits; i++) {
+    groups.forEach((g) => {
       const th = document.createElement("th");
       th.className = "sub";
-      th.textContent = i === digits - 1 && digits === 7 ? "0-14" : "0-9";
+      th.textContent = digits === 7 && g.label === "EFG" ? "0-9 · 0-14" : "0-9";
       hr2.appendChild(th);
-    }
+    });
     thead.appendChild(hr2);
     table.appendChild(thead);
 
@@ -103,12 +122,15 @@
       tdVal.textContent = computeValue(draw.result);
       tr.appendChild(tdVal);
 
-      draw.result.forEach((n) => {
+      groups.forEach((g) => {
         const td = document.createElement("td");
-        const span = document.createElement("span");
-        span.className = "num-cell";
-        span.textContent = n;
-        td.appendChild(span);
+        td.className = "col-group";
+        g.indices.forEach((idx) => {
+          const span = document.createElement("span");
+          span.className = "num-cell";
+          span.textContent = draw.result[idx];
+          td.appendChild(span);
+        });
         tr.appendChild(td);
       });
 
