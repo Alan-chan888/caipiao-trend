@@ -139,22 +139,18 @@ body {
   border: 1px solid #c9d4c0;
 }
 .trend-table thead th {
-  position: sticky;
   background: #e6ece2;
   color: #7461cd;
   font-weight: 700;
-  z-index: 2;
 }
-.trend-table thead tr:first-child th { top: 0; }
-.trend-table thead tr:last-child th { top: 44px; }
 .trend-table thead th.sub {
   font-size: 14px;
   font-weight: 500;
   color: #7d8f74;
   padding: 4px 12px;
 }
-.trend-table tbody tr:nth-child(even) { background: #f2f6ee; }
-.trend-table tbody tr:hover { background: #e9f0e2; }
+.trend-table tbody tr.row-green td { background: #e6ece2; }
+.trend-table tbody tr:hover td { background: #d8e4cf; }
 .trend-table .col-merged { line-height: 1.25; }
 .trend-table .merged-num { color: #2c4a1e; font-size: 18px; font-weight: 700; }
 .trend-table .merged-date { color: #9aa3a0; font-size: 13px; }

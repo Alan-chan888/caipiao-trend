@@ -86,11 +86,12 @@
     thead.appendChild(hr1);
     table.appendChild(thead);
 
-    // 数据行: 越往下开奖越近 (最早在上, 最新在下)
+    // 数据行: 越往下开奖越近 (最早在上, 最新在下); 每4期一组绿白交替
     const tbody = document.createElement("tbody");
     for (let r = 0; r < draws.length; r++) {
       const draw = draws[r];
       const tr = document.createElement("tr");
+      if (r % 8 < 4) tr.className = "row-green";
 
       const tdMerged = document.createElement("td");
       tdMerged.className = "col-merged";
