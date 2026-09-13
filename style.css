@@ -171,8 +171,6 @@ body {
   font-size: 24px;
   font-weight: 700;
 }
-/* 号码分组: 组内数字紧凑 */
-.col-group .num-cell { margin: 0 2px; }
 
 /* ===== 页脚 ===== */
 .footer {

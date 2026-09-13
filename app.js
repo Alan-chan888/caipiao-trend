@@ -69,7 +69,7 @@
     const table = $("#trendTable");
     table.innerHTML = "";
 
-    // 表头
+    // 表头(单行): 期号 | 值 | A | BCD(colspan) | EFG(colspan)
     const thead = document.createElement("thead");
     const hr1 = document.createElement("tr");
     ["期号", "值"].forEach((t) => {
@@ -80,23 +80,10 @@
     groups.forEach((g) => {
       const th = document.createElement("th");
       th.textContent = g.label;
+      if (g.indices.length > 1) th.colSpan = g.indices.length;
       hr1.appendChild(th);
     });
     thead.appendChild(hr1);
-
-    const hr2 = document.createElement("tr");
-    const thDate = document.createElement("th");
-    thDate.className = "sub";
-    thDate.textContent = "日期";
-    hr2.appendChild(thDate);
-    hr2.appendChild(document.createElement("th"));
-    groups.forEach((g) => {
-      const th = document.createElement("th");
-      th.className = "sub";
-      th.textContent = digits === 7 && g.label === "EFG" ? "0-9 · 0-14" : "0-9";
-      hr2.appendChild(th);
-    });
-    thead.appendChild(hr2);
     table.appendChild(thead);
 
     // 数据行: 越往下开奖越近 (最早在上, 最新在下)
@@ -109,7 +96,7 @@
       tdMerged.className = "col-merged";
       const numDiv = document.createElement("div");
       numDiv.className = "merged-num";
-      numDiv.textContent = draw.num.length > 3 ? draw.num.slice(-3) : draw.num;
+      numDiv.textContent = draw.num; // 完整期号
       const dateDiv = document.createElement("div");
       dateDiv.className = "merged-date";
       dateDiv.textContent = shortDate(draw.date);
@@ -122,15 +109,13 @@
       tdVal.textContent = computeValue(draw.result);
       tr.appendChild(tdVal);
 
-      groups.forEach((g) => {
+      // 号码: 每个数字独立列
+      draw.result.forEach((n) => {
         const td = document.createElement("td");
-        td.className = "col-group";
-        g.indices.forEach((idx) => {
-          const span = document.createElement("span");
-          span.className = "num-cell";
-          span.textContent = draw.result[idx];
-          td.appendChild(span);
-        });
+        const span = document.createElement("span");
+        span.className = "num-cell";
+        span.textContent = n;
+        td.appendChild(span);
         tr.appendChild(td);
       });
 
