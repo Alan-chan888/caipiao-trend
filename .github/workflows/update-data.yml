@@ -1,11 +1,10 @@
 name: Update Lottery Data
 
+# 注意: webapi.sporttery.cn 对海外 IP 有访问限制(Cloudflare 520),
+# GitHub Actions 的海外 runner 抓取会失败, 故停用定时 schedule.
+# "持续更新"由本机 launchd 定时任务(update.sh)完成.
+# 此 workflow 仅保留手动触发(workflow_dispatch)作为应急备份.
 on:
-  schedule:
-    # 注意: webapi.sporttery.cn 对海外 IP 有访问限制(Cloudflare 520),
-    # GitHub Actions 的海外 runner 抓取会失败. 因此"持续更新"主要由
-    # 本机 launchd 定时任务(update.sh)完成, 这里仅作为每日备份.
-    - cron: "0 14 * * *"
   workflow_dispatch: {}
 
 permissions:
