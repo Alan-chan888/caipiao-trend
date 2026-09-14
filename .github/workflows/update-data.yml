@@ -2,10 +2,10 @@ name: Update Lottery Data
 
 on:
   schedule:
-    # 每小时抓取一次, 确保开奖后尽快更新
-    # 排列五每天 20:30 开奖, 七星彩每周二/四/日 20:30 开奖 (均为北京时间)
-    # 开奖结果约 20:40 公布, 每小时整点抓取 → 开奖后最快约 30 分钟内更新
-    - cron: "0 * * * *"
+    # 注意: webapi.sporttery.cn 对海外 IP 有访问限制(Cloudflare 520),
+    # GitHub Actions 的海外 runner 抓取会失败. 因此"持续更新"主要由
+    # 本机 launchd 定时任务(update.sh)完成, 这里仅作为每日备份.
+    - cron: "0 14 * * *"
   workflow_dispatch: {}
 
 permissions:

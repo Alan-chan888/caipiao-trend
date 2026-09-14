@@ -11,6 +11,7 @@ import json
 import os
 import ssl
 import sys
+import time
 import urllib.request
 from datetime import datetime, timezone, timedelta
 
@@ -31,8 +32,8 @@ PAGE_SIZE = 100    # 每页 100 期 (接口上限)
 CN_TZ = timezone(timedelta(hours=8))
 
 
-def fetch_page(game_no, page_size, page_no):
-    """抓取一页历史开奖数据.
+def fetch_page(game_no, page_size, page_no, retries=3):
+    """抓取一页历史开奖数据, 带重试.
 
     使用 unverified SSL context 的原因: 本地开发机存在自签名代理导致证书链校验失败,
     而 GitHub Actions 的干净环境则无此问题. 此处抓取的是公开开奖号码, 无敏感数据,
@@ -40,9 +41,18 @@ def fetch_page(game_no, page_size, page_no):
     """
     ctx = ssl._create_unverified_context()
     url = f"{BASE_URL}?gameNo={game_no}&provinceId=0&pageSize={page_size}&isVerify=1&pageNo={page_no}"
-    req = urllib.request.Request(url, headers=HEADERS)
-    with urllib.request.urlopen(req, timeout=30, context=ctx) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+    last_err = None
+    for attempt in range(1, retries + 1):
+        try:
+            req = urllib.request.Request(url, headers=HEADERS)
+            with urllib.request.urlopen(req, timeout=60, context=ctx) as resp:
+                return json.loads(resp.read().decode("utf-8"))
+        except Exception as e:
+            last_err = e
+            print(f"  [重试 {attempt}/{retries}] {type(e).__name__}: {e}", file=sys.stderr)
+            if attempt < retries:
+                time.sleep(attempt * 5)
+    raise RuntimeError(f"抓取失败(重试 {retries} 次后): {last_err}")
 
 
 def parse_result(result_str):
